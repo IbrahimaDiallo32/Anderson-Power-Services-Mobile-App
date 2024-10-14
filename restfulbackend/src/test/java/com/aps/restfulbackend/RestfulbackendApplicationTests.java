@@ -1,10 +1,10 @@
-package com.apsbackend.apsbackend;
+package com.aps.restfulbackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApsBackendApplicationTests {
+class RestfulbackendApplicationTests {
 
 	@Test
 	void contextLoads() {

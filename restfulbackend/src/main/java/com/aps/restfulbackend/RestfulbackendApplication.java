@@ -1,13 +1,13 @@
-package com.apsbackend.apsbackend;
+package com.aps.restfulbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApsBackendApplication {
+public class RestfulbackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApsBackendApplication.class, args);
+		SpringApplication.run(RestfulbackendApplication.class, args);
+		System.out.print("Hello APS world");
 	}
-
 }
