@@ -8,6 +8,5 @@ public class RestfulbackendApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestfulbackendApplication.class, args);
-		System.out.print("Hello APS world");
 	}
 }
