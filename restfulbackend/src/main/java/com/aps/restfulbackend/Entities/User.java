@@ -8,29 +8,14 @@ import java.util.Date;
 @Table(name="user")
 public class User {
     @Id
-    @Column(name="userId", length = 45)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-
-    @Column(name="userName", length = 255)
     private String userName;
-
-    @Column(name="userPassword", length = 255)
     private String userPassword;
-
-    @Column(name="userEmail", length = 255)
     private String userEmail;
-
-    @Column(name="userPhone")
     private int userPhone;
-
-    @Column(name="userFirstName", length = 255)
     private String userFirstName;
-
-    @Column(name="userLastName", length = 255)
     private String userLastName;
-
-    @Column(name="userCreatedAt")
     private Date userCreatedAt;
 
     public User(long userId, String userName, String userPassword, String userEmail, String userFirstName, String userLastName) {
@@ -110,5 +95,19 @@ public class User {
 
     public void setUserCreatedAt(Date userCreatedAt) {
         this.userCreatedAt = userCreatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userPhone=" + userPhone +
+                ", userFirstName='" + userFirstName + '\'' +
+                ", userLastName='" + userLastName + '\'' +
+                ", userCreatedAt=" + userCreatedAt +
+                '}';
     }
 }
