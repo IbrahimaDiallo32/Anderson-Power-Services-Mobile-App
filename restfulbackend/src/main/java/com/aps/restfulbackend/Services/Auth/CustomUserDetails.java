@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 public class CustomUserDetails implements UserDetails {
 
@@ -18,6 +19,19 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+    }
+
+    // Custom methods
+    public UUID getUserId() {
+        return appUser.getUserId();
+    }
+
+    public String getFirstName() {
+        return appUser.getFirstName();
+    }
+
+    public String getLastName() {
+        return appUser.getLastName();
     }
 
     @Override
