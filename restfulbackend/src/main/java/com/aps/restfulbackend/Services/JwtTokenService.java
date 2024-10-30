@@ -17,7 +17,8 @@ import java.util.function.Function;
 @Service
 public class JwtTokenService {
 
-    public String SECRET_KEY = "<unset>";
+    String passHash = System.getenv("APS_HASH");
+    public String SECRET_KEY = passHash;
     private Date CURRENT_TIME = new Date(System.currentTimeMillis());
     private Date EXPIRATION_TIME = new Date(System.currentTimeMillis() + 1000 * 60 * 60 *24);
 
