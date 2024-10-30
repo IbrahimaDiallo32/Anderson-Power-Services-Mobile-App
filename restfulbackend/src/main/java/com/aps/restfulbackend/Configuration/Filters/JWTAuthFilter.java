@@ -48,7 +48,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 
         // Check if user is null and authenticated
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = customUserDetailsService;
+            return;
         }
     }
 
