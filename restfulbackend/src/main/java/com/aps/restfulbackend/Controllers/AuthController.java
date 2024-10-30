@@ -15,10 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.token.TokenService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/auth")
@@ -59,9 +56,32 @@ public class AuthController {
         // Generate token
         String token = jwtTokenService.generateToken(customUserDetails);
 
-        //
+        // Set response
         AuthResponse response = new AuthResponse(token, customUserDetails);
 
         return new ResponseEntity(response, HttpStatus.ACCEPTED);
     }
+
+    @PostMapping("/register")
+    public ResponseEntity register(@RequestParam("first_name") String firstName,
+                                   @RequestParam("last_name") String lastName,
+                                   @RequestParam("email") String email,
+                                   @RequestParam("password") String password,
+                                   @RequestParam("phone") String phone) {
+
+        int result = appUserService.registerUser(firstName, lastName, email, password, phone);
+
+        if (result != 1) {
+            return new ResponseEntity(
+                    "Uh oh, sometihng went wrong with user registration... :P",
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+
+        return new ResponseEntity(
+                "User registration succesful! :)",
+                HttpStatus.CREATED
+        );
+    }
+
 }
