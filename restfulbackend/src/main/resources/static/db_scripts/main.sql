@@ -12,3 +12,5 @@ CREATE TABLE app_user(
     updated_at DATETIME,
     PRIMARY KEY (user_id)
 );
+
+ALTER TABLE app_user OWNER TO apsrole;

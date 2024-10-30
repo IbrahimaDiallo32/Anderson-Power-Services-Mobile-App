@@ -13,7 +13,6 @@ public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID userId;
-    private String username;
     private String password;
     private String firstName;
     private String lastName;
@@ -29,14 +28,6 @@ public class AppUser {
 
     public void setUserId(UUID userId) {
         this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
