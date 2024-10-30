@@ -14,9 +14,11 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -29,12 +31,17 @@ public class SecurityConfiguration {
     JWTAuthFilter jwtAuthFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, AuthenticationConfiguration authenticationConfiguration) throws Exception {
         httpSecurity
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/", "/test").permitAll() // No authorization needed for accessing these paths
-                        .anyRequest().authenticated()) // Any other request the use will need to be authenticated
-        .httpBasic(Customizer.withDefaults());
+                        .anyRequest().authenticated()) // Any other request will need to be authenticated
+                .sessionManagement( sessionManager ->
+                        sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // TODO: Sort this out
+                .authenticationProvider(authenticationProvider(authenticationConfiguration)).addFilterBefore(
+                        jwtAuthFilter, UsernamePasswordAuthenticationFilter.class
+                );
 
         return httpSecurity.build();
     }
