@@ -1,8 +1,5 @@
 package com.aps.restfulbackend.Controllers;
 
-import com.aps.restfulbackend.Services.AppUserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
