@@ -40,7 +40,10 @@ public class ExtractUserIDFromToken {
             userEmail = jwtTokenService.extractUsername(jwtToken);
         }
 
+        // Make sure user_id is not null
         if (userEmail != null) {
+
+            // Load user by user email
             customUserDetails = (CustomUserDetails) customUserDetailsService.loadUserByUsername(userEmail);
 
             user_id = customUserDetails.getUserId();
