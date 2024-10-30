@@ -1,16 +1,13 @@
 package com.aps.restfulbackend.Configuration.Security;
 
 import com.aps.restfulbackend.Configuration.Filters.JWTAuthFilter;
-import com.aps.restfulbackend.Services.Auth.CustomUserDetails;
 import com.aps.restfulbackend.Services.Auth.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,12 +31,11 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, AuthenticationConfiguration authenticationConfiguration) throws Exception {
         httpSecurity
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/test").permitAll() // No authorization needed for accessing these paths
+                        .requestMatchers("/", "/api/v1/auth/**").permitAll() // No authorization needed for accessing these paths
                         .anyRequest().authenticated()) // Any other request will need to be authenticated
                 .sessionManagement( sessionManager ->
                         sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // TODO: Sort this out
-                .authenticationProvider(authenticationProvider(authenticationConfiguration)).addFilterBefore(
+                .authenticationProvider(authenticationProvider()).addFilterBefore(
                         jwtAuthFilter, UsernamePasswordAuthenticationFilter.class
                 );
 
@@ -47,7 +43,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(AuthenticationConfiguration authenticationConfiguration) {
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(customUserDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(this.passwordEncoder());
