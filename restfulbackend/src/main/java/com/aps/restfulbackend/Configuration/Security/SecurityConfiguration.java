@@ -11,6 +11,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,8 +31,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, AuthenticationConfiguration authenticationConfiguration) throws Exception {
         httpSecurity
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/", "/api/v1/auth/**").permitAll() // No authorization needed for accessing these paths
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests( auth -> auth
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/api/v1/auth/**").permitAll() // No authorization needed for accessing these paths
                         .anyRequest().authenticated()) // Any other request will need to be authenticated
                 .sessionManagement( sessionManager ->
                         sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
