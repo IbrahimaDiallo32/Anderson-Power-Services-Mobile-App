@@ -69,7 +69,10 @@ public class AuthController {
                                    @RequestParam("password") String password,
                                    @RequestParam("phone") String phone) {
 
-        int result = appUserService.registerUser(firstName, lastName, email, password, phone);
+        // HASH THE DARN PASSWORD
+        String hashedPassword = passwordEncoder.encode(password);
+
+        int result = appUserService.registerUser(firstName, lastName, email, hashedPassword, phone);
 
         if (result != 1) {
             return new ResponseEntity(
