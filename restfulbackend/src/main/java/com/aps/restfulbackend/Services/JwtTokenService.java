@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,9 @@ import java.util.function.Function;
 @Service
 public class JwtTokenService {
 
-    String passHash = System.getenv("APS_HASH");
-    public String SECRET_KEY = passHash;
+    @Value("${my.app.env1}")
+    public String SECRET_KEY;
+
     private Date CURRENT_TIME = new Date(System.currentTimeMillis());
     private Date EXPIRATION_TIME = new Date(System.currentTimeMillis() + 1000 * 60 * 60 *24);
 
