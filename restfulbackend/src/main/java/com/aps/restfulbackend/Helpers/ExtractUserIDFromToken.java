@@ -31,7 +31,7 @@ public class ExtractUserIDFromToken {
         String userEmail = null;
 
         // Validate authorization header
-        if (authHeader != null || authHeader.startsWith("Bearer ")) {
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
 
             // Set jwt value
             jwtToken = authHeader.substring(7);
