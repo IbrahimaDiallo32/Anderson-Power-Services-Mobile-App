@@ -5,6 +5,8 @@ import com.aps.restfulbackend.Repositories.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class AppUserService {
 
@@ -13,6 +15,10 @@ public class AppUserService {
 
     public AppUser getUserByEmail(String email) {
         return appUserRepository.getUserByEmail(email);
+    }
+
+    public AppUser getUserByID(UUID id) {
+        return appUserRepository.getUserByID(id);
     }
 
     public int registerUser(String first_name, String last_name, String email, String password, String phone) {

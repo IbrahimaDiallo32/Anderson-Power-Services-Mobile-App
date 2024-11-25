@@ -6,14 +6,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 public class AppUserController {
 
-//    @Autowired
-//    AppUserService appUserService;
-//
-//    @PostMapping("/api/v1/users")
-//    public User createUser(@RequestBody User user) {
-//        return this.appUserService.save(user);
-//    }
-
     @GetMapping("/test")
     public String testEndpoint() {
         return "Test is successful";
