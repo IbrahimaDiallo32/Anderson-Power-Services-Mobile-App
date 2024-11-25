@@ -36,6 +36,36 @@ spring.datasource.username=<db-user>
 spring.datasource.password=<db-user-pass>
 my.app.env1=<SHA-256 key of your own choice>
 ```
+This file is then imported into `application.properties`.  
+![image](https://github.com/user-attachments/assets/77fc0f6b-e8b3-4d78-b507-25d911974246)  
+
+You should be all set now to compile the project with maven.
+
+### Generate image with JAR file
+
+After you have compiled and packaged the .JAR file, it should be present in the `target` folder. You should then be able to generate a docker image with the generated executable file.  
+
+The following lines should be seen in the Dockerfile:  
+```
+FROM ubuntu:latest
+
+RUN apt-get update
+RUN apt-get -y install default-jre
+
+COPY ./target/*.jar ./app/app.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "/app/app.jar"]
+```
+
+In CMD or terminal, change directory over to the repository location of the backend folder (where you openned with intelij) and build the image.  
+
+```
+docker build -t <image> .
+```
+
+You are now able to send the image over to a private image repository of your choice in order to pull it onto your server machine, where you can then run the image as a container.
 
 
 
@@ -44,15 +74,10 @@ my.app.env1=<SHA-256 key of your own choice>
 
 
 
-
-
-
-
-
-
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
+
+This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).  
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
