@@ -76,13 +76,13 @@ public class AuthController {
 
         if (result != 1) {
             return new ResponseEntity(
-                    "Uh oh, sometihng went wrong with user registration... :P",
+                    "Something went wrong with user registration.",
                     HttpStatus.BAD_REQUEST
             );
         }
 
         return new ResponseEntity(
-                "User registration succesful! :)",
+                "User registration successful!",
                 HttpStatus.CREATED
         );
     }
