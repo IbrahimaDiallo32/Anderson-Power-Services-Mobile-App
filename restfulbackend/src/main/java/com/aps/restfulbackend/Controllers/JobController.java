@@ -26,7 +26,6 @@ public class JobController {
 
     @PostMapping("/register")
     public ResponseEntity registerJob(@RequestParam("job_id") String job_id,
-                                      @RequestParam("auth_email") String auth_email,
                                       HttpServletRequest request)
     {
         UUID user_id = extractUserIDFromToken.getUserIdFromToken(request);
@@ -39,6 +38,17 @@ public class JobController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Job ID was null!");
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Job registered successfully!");
+
+        int result = jobService.RegisterJob(job_id, user_id);
+
+        if (result == -1) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User email and job authentication email do not match!");
+        }
+
+        if (result == 1) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("Job registered successfully!");
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error occurred while registering job!");
     }
 }
