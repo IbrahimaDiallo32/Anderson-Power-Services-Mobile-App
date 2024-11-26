@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Repository
@@ -21,4 +22,7 @@ public interface JobRepository extends CrudRepository<Job, Integer> {
 
     @Query(value = "SELECT email_auth FROM job WHERE id = :job_id", nativeQuery = true)
     public String getJobAuthEmail(@Param("job_id") String job_id);
+
+    @Query(value = "SELECT * FROM job WHERE user_id = :user_id", nativeQuery = true)
+    public ArrayList<Job> findJobsByUserID(@Param("user_id") String user_id);
 }
