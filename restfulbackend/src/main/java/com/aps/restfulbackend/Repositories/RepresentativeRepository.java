@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface RepresentativeRepository extends CrudRepository<Representative, Integer> {
 
     @Query(value = "SELECT * FROM representative WHERE id = :id", nativeQuery = true)
-    public Representative getRepresentativeById(@Param("id") int id);
+    Representative getRepresentativeById(@Param("id") int id);
 
 }

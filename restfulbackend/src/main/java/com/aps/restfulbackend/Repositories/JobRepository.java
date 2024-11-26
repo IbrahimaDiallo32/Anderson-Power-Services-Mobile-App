@@ -17,12 +17,12 @@ public interface JobRepository extends CrudRepository<Job, Integer> {
     @Transactional
     @Modifying
     @Query(value = "UPDATE job SET user_id = :in_user_id WHERE id = :job_id", nativeQuery = true)
-    public int registerExistingJob(@Param("in_user_id") UUID in_user_id, @Param("job_id") String job_id);
+    int registerExistingJob(@Param("in_user_id") UUID in_user_id, @Param("job_id") String job_id);
 
 
     @Query(value = "SELECT email_auth FROM job WHERE id = :job_id", nativeQuery = true)
-    public String getJobAuthEmail(@Param("job_id") String job_id);
+    String getJobAuthEmail(@Param("job_id") String job_id);
 
     @Query(value = "SELECT * FROM job WHERE user_id = :user_id", nativeQuery = true)
-    public ArrayList<Job> findJobsByUserID(@Param("user_id") UUID user_id);
+    ArrayList<Job> findJobsByUserID(@Param("user_id") UUID user_id);
 }
