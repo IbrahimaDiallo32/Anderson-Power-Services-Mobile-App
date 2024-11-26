@@ -1,7 +1,9 @@
 package com.aps.restfulbackend.Services;
 
+import com.aps.restfulbackend.Dto.Responses.JobBundle;
 import com.aps.restfulbackend.Models.AppUser;
 import com.aps.restfulbackend.Models.Job;
+import com.aps.restfulbackend.Models.Representative;
 import com.aps.restfulbackend.Repositories.JobRepository;
 import com.aps.restfulbackend.Services.Auth.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class JobService {
 
     @Autowired
     private JobRepository jobRepository;
+
+    @Autowired
+    private RepresentativeService repService;
 
     @Autowired
     private AppUserService appUserService;
@@ -35,7 +40,28 @@ public class JobService {
         return jobRepository.registerExistingJob(user_id, job_id);
     }
 
-    public ArrayList<Job> getUserJobs(String user_id) {
+    public ArrayList<Job> getUserJobs(UUID user_id) {
         return jobRepository.findJobsByUserID(user_id);
     }
+
+    public ArrayList<JobBundle> getUserJobBundles(UUID user_id) {
+
+        ArrayList<Job> jobList = getUserJobs(user_id);
+
+        ArrayList<JobBundle> jobBundles = new ArrayList<>();
+
+        for (Job job : jobList) {
+
+            Representative installRep = repService.getRepresentative(job.getRep_one_id());
+            Representative salesRep = repService.getRepresentative(job.getRep_two_id());
+
+            JobBundle jobBundle = new JobBundle(job, installRep, salesRep);
+
+            jobBundles.add(jobBundle);
+
+        }
+
+        return jobBundles;
+    }
+
 }
