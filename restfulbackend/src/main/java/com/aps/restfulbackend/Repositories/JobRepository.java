@@ -24,5 +24,5 @@ public interface JobRepository extends CrudRepository<Job, Integer> {
     public String getJobAuthEmail(@Param("job_id") String job_id);
 
     @Query(value = "SELECT * FROM job WHERE user_id = :user_id", nativeQuery = true)
-    public ArrayList<Job> findJobsByUserID(@Param("user_id") String user_id);
+    public ArrayList<Job> findJobsByUserID(@Param("user_id") UUID user_id);
 }
