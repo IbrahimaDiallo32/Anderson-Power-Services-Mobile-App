@@ -2,12 +2,12 @@ package com.aps.restfulbackend.Services;
 
 import com.aps.restfulbackend.Models.AppUser;
 import com.aps.restfulbackend.Models.Job;
-import com.aps.restfulbackend.Repositories.AppUserRepository;
 import com.aps.restfulbackend.Repositories.JobRepository;
 import com.aps.restfulbackend.Services.Auth.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
@@ -33,5 +33,9 @@ public class JobService {
         }
 
         return jobRepository.registerExistingJob(user_id, job_id);
+    }
+
+    public ArrayList<Job> getUserJobs(String user_id) {
+        return jobRepository.findJobsByUserID(user_id);
     }
 }
