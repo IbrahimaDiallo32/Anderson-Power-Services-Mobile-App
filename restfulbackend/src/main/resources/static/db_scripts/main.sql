@@ -9,7 +9,7 @@ CREATE TABLE app_user(
     last_name VARCHAR(50) NOT NULL,
     phone VARCHAR(50),
     created_at TIMESTAMP,
-    updated_at DATETIME,
+    updated_at TIMESTAMP,
     PRIMARY KEY (user_id)
 );
 
