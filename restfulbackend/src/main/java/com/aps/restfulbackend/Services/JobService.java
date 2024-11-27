@@ -52,9 +52,8 @@ public class JobService {
 
         for (Job job : jobList) {
 
-            Representative installRep = repService.getRepresentative(job.getRep_one_id());
-            Representative salesRep = repService.getRepresentative(job.getRep_two_id());
-
+            Representative installRep = repService.getRepresentative(job.getInstall_rep_id());
+            Representative salesRep = repService.getRepresentative(job.getSales_rep_id());
             JobBundle jobBundle = new JobBundle(job, installRep, salesRep);
 
             jobBundles.add(jobBundle);

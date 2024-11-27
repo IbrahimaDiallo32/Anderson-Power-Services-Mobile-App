@@ -13,8 +13,8 @@ public class Job {
     @Id
     private String id;
     private UUID user_id;
-    private int rep_one_id;
-    private int rep_two_id;
+    private int install_rep_id;
+    private int sales_rep_id;
     private String email_auth;
     private String gen_size_model;
     private String install_status;
@@ -36,20 +36,20 @@ public class Job {
         this.user_id = user_id;
     }
 
-    public int getRep_one_id() {
-        return rep_one_id;
+    public int getInstall_rep_id() {
+        return install_rep_id;
     }
 
-    public void setRep_one_id(int rep_one_id) {
-        this.rep_one_id = rep_one_id;
+    public void setInstall_rep_id(int install_rep_id) {
+        this.install_rep_id = install_rep_id;
     }
 
-    public int getRep_two_id() {
-        return rep_two_id;
+    public int getSales_rep_id() {
+        return sales_rep_id;
     }
 
-    public void setRep_two_id(int rep_two_id) {
-        this.rep_two_id = rep_two_id;
+    public void setSales_rep_id(int sales_rep_id) {
+        this.sales_rep_id = sales_rep_id;
     }
 
     public String getEmail_auth() {
