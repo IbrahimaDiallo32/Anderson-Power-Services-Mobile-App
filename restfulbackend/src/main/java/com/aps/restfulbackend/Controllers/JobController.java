@@ -18,10 +18,10 @@ import java.util.UUID;
 public class JobController {
 
     @Autowired
-    ExtractUserIDFromToken extractUserIDFromToken;
+    private ExtractUserIDFromToken extractUserIDFromToken;
 
     @Autowired
-    JobService jobService;
+    private JobService jobService;
 
     @PostMapping("/register")
     public ResponseEntity registerJob(@RequestParam("job_id") String job_id,
