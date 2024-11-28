@@ -9,8 +9,8 @@ import jakarta.persistence.Table;
 public class Ad {
 
     @Id
-    int id;
-    String ad_text;
+    private int id;
+    private String ad_text;
 
     public int getId() {
         return id;
