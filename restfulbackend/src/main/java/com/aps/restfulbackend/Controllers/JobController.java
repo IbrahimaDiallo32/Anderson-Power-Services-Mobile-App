@@ -51,6 +51,33 @@ public class JobController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error occurred while registering job!");
     }
 
+    @PostMapping("/unregister")
+    public ResponseEntity unregisterJob(@RequestParam("job_id") String job_id,
+                                      HttpServletRequest request)
+    {
+        UUID user_id = extractUserIDFromToken.getUserIdFromToken(request);
+
+        if (user_id == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found!");
+        }
+
+        if (job_id == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Job ID was null!");
+        }
+
+        int result = jobService.unegisterJob(job_id, user_id);
+
+        if (result == -1) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User id and job's user id do not match!");
+        }
+
+        if (result == 1) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("Job unregistered successfully!");
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error occurred while unregistering job!");
+    }
+
     @GetMapping("/get-user-jobs")
     public ResponseEntity getUserJobs(HttpServletRequest request) {
 

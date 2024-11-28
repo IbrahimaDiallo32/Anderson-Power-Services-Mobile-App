@@ -24,6 +24,10 @@ public class JobService {
     @Autowired
     private AppUserService appUserService;
 
+    public Job getJobByID(String job_id) {
+        return jobRepository.getJobById(job_id);
+    };
+
     public int RegisterJob(String job_id, UUID user_id) {
 
         AppUser appUser = appUserService.getUserByID(user_id);
@@ -38,6 +42,18 @@ public class JobService {
         }
 
         return jobRepository.registerExistingJob(user_id, job_id);
+    }
+
+    public int unegisterJob(String job_id, UUID user_id) {
+
+        Job job =  jobRepository.getJobById(job_id);
+
+        // Check and make sure that user email and job auth email are the same.
+        if (!user_id.equals(job.getUser_id())) {
+            return -1;
+        }
+
+        return jobRepository.unregisterExistingJob(job_id);
     }
 
     public ArrayList<Job> getUserJobs(UUID user_id) {
