@@ -21,7 +21,7 @@ public interface AppUserRepository extends CrudRepository<AppUser, UUID> {
 
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO app_user (first_name, last_name, email, password, phone) VALUES(:first_name, :last_name, :email, :password, :phone)", nativeQuery = true)
+    @Query(value = "INSERT INTO app_user (first_name, last_name, email, password, phone, created_at) VALUES(:first_name, :last_name, :email, :password, :phone, CURRENT_TIMESTAMP)", nativeQuery = true)
     int registerUser(@Param("first_name") String first_name,
                      @Param("last_name") String last_name,
                      @Param("email") String email,
